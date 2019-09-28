@@ -1,0 +1,9 @@
+apiVersion: "authentication.istio.io/v1"
+kind: "Policy"
+metadata:
+  name: "default"
+  namespace: "race-manager"
+spec:
+  peers:
+    - mtls:
+mode: PERMISSIVE
