@@ -6,20 +6,30 @@ import static org.hamcrest.CoreMatchers.is;
 import javax.inject.Inject;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
+import javax.ws.rs.core.MediaType;
 
 import org.junit.jupiter.api.Test;
 
+import at.racemanager.drivers.api.Driver;
 import at.racemanager.drivers.business.DriverService;
 import io.quarkus.test.junit.QuarkusTest;
 
+/**
+ * testing the driver-resource
+ * 
+ * @author rolhai
+ */
 @QuarkusTest
 public class DriversResourceTest {
 
 	@Inject
-	private DriverService driverService;
+	DriverService driverService;
 	
+	/**
+	 * test getting all drivers
+	 */
     @Test
-    public void testHelloEndpoint() {
+    public void testGetDriversEndpoint() {
     	Jsonb jsonb = JsonbBuilder.create();
     	String json = jsonb.toJson(driverService.getDrivers());  
     	
@@ -28,6 +38,46 @@ public class DriversResourceTest {
           .then()
              .statusCode(200)
              .body(is(json));
+    }
+    
+    /**
+     * test adding a driver
+     */
+    @Test
+    public void testAddDriversEndpoint() {
+    	Driver driver = new Driver();
+    	driver.setFirstname("Fernando");
+    	driver.setLastname("Alonso");
+    	
+    	Jsonb jsonb = JsonbBuilder.create();
+    	String json = jsonb.toJson(driver);
+    	
+    	given()
+    		.body(json)
+    		.header("Content-Type", MediaType.APPLICATION_JSON)
+    		.when().post("/drivers")
+    		.then()
+            	.statusCode(200);
+    }
+    
+    /**
+     * test removing a driver
+     */
+    @Test
+    public void testRemoveDriversEndpoint() {
+    	Driver driver = new Driver();
+    	driver.setFirstname("Fernando");
+    	driver.setLastname("Alonso");
+    	
+    	Jsonb jsonb = JsonbBuilder.create();
+    	String json = jsonb.toJson(driver);
+
+    	given()
+    		.body(json)
+    		.header("Content-Type", MediaType.APPLICATION_JSON)
+    		.when().delete("/drivers")
+    		.then()
+            	.statusCode(200);
     }
 
 }

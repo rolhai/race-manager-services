@@ -3,26 +3,41 @@ package at.racemanager.drivers.business;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
 
 import at.racemanager.drivers.api.Driver;
 
-@RequestScoped
+@ApplicationScoped
 public class DriverService {
-
-	public List<Driver> getDrivers() {
-		List<Driver> result = new ArrayList<>();
-		
+	
+	private final List<Driver> driverRepo = new ArrayList<>();
+	
+	@PostConstruct
+	void initRepo() {
 		Driver mika = new Driver();
 		mika.setFirstname("Mika");
 		mika.setLastname("Hakkinen");
-		result.add(mika);
+		driverRepo.add(mika);
 		
 		Driver michael = new Driver();
 		michael.setFirstname("Michael");
 		michael.setLastname("Schumacher");
-		result.add(michael);
-		
-		return result;
+		driverRepo.add(michael);
+	}
+
+	public List<Driver> getDrivers() {
+		return new ArrayList<>(driverRepo);
+	}
+	
+	public void add(Driver driver) {
+		if (driverRepo.contains(driver)) {
+			driverRepo.remove(driver);
+		}
+		driverRepo.add(driver);
+	}
+	
+	public void remove(Driver driver) {
+		driverRepo.remove(driver);
 	}
 }
