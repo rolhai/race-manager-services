@@ -9,12 +9,30 @@ function _out() {
 }
 
 function setup() {
-  oc login -u admin -p admin
+  echo falls docker-registry nicht laeuft, login als admin bei oc-console und manuell starten
+
+  echo login...developer
+  oc login -u developer -p developer
+
+  echo create new project...race-manager
   oc new-project race-manager
-  oc adm policy add-scc-to-user anyuid -z default -n race-manager
-  oc adm policy add-scc-to-user privileged -z default -n race-manager
-  oc adm policy add-role-to-user admin developer
-  cd ${root_folder}/minishift-scripts
+
+  echo create new build...drivers
+  oc new-build --strategy docker --dockerfile - --code ${root_folder}/drivers-java-ee/. --name drivers < ${root_folder}/drivers-java-ee/src/main/docker/Dockerfile.jvm
+
+  echo start build...drivers
+  oc start-build --from-dir . drivers
+
+  echo create new app...drivers
+  oc new-app --image-stream race-manager/drivers --name drivers
+
+  echo expose service...drivers
+  oc expose svc/drivers
+
+  echo skip oc adm policy add-scc-to-user anyuid -z default -n race-manager
+  echo skip oc adm policy add-scc-to-user privileged -z default -n race-manager
+  echo skip oc adm policy add-role-to-user admin developer
+  echo skip cd ${root_folder}/minishift-scripts
   echo skip oc apply -f no-mtls.yaml
 }
 

@@ -20,3 +20,4 @@ ENV AB_ENABLED=jmx_exporter
 COPY target/lib/* /deployments/lib/
 COPY target/*-runner.jar /deployments/app.jar
 ENTRYPOINT [ "/deployments/run-java.sh" ]
+EXPOSE 8080
