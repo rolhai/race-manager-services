@@ -13,35 +13,52 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package at.racemanager.drivers.logic;
-
-import java.util.List;
-
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-
-import at.racemanager.drivers.api.model.Driver;
+package at.racemanager.tracks.logic;
 
 /**
- * business logic for drivers
+ * Country Codes - ISO 3166 Alpha2-Code c<br>
+ * https://www.iso.org/obp/ui/#search
+ *
+ * https://de.wikipedia.org/wiki/ISO_3166-2
  *
  * @author rolhai
  */
-@RequestScoped
-public class DriverService {
+public enum CountryIsoCode {
 
-    @Inject
-    private DriverRepository repo;
-
-    public List<Driver> getDrivers() {
-        return repo.getDrivers();
-    }
-
-    public void update(Driver driver) {
-        repo.update(driver);
-    }
-
-    public void remove(Driver driver) {
-        repo.remove(driver);
-    }
+    /**
+     * Östereich
+     */
+    AT,
+    /**
+     * Australien
+     */
+    AU,
+    /**
+     * Deutschland
+     */
+    DE,
+    /**
+     * Spanien
+     */
+    ES,
+    /**
+     * Frankreich
+     */
+    FR,
+    /**
+     * Finnland
+     */
+    FI,
+    /**
+     * Grossbritannien
+     */
+    GB,
+    /**
+     * Monaco
+     */
+    MC,
+    /**
+     * Niederlande
+     */
+    NL;
 }

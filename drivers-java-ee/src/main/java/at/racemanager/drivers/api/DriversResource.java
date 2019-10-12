@@ -39,22 +39,22 @@ import at.racemanager.drivers.logic.DriverService;
 public class DriversResource {
 
     @Inject
-    DriverService driverService;
+    private DriverService service;
 
     @GET
     public Response getDrivers() {
-        return Response.ok(driverService.getDrivers()).build();
+        return Response.ok(service.getDrivers()).build();
     }
 
     @PUT
     public Response updateDriver(Driver driver) {
-        driverService.update(driver);
+        service.update(driver);
         return Response.ok().build();
     }
 
     @DELETE
     public Response removeDriver(Driver driver) {
-        driverService.remove(driver);
+        service.remove(driver);
         return Response.ok().build();
     }
 }

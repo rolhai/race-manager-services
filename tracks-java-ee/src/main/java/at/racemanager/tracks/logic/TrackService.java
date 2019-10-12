@@ -13,35 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package at.racemanager.drivers.logic;
+package at.racemanager.tracks.logic;
 
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
-import at.racemanager.drivers.api.model.Driver;
+import at.racemanager.tracks.api.model.Track;
+
 
 /**
- * business logic for drivers
- *
  * @author rolhai
  */
 @RequestScoped
-public class DriverService {
+public class TrackService {
 
     @Inject
-    private DriverRepository repo;
+    private TrackRepository repo;
 
-    public List<Driver> getDrivers() {
-        return repo.getDrivers();
+    public List<Track> getTracks() {
+        return repo.getTracks();
     }
 
-    public void update(Driver driver) {
-        repo.update(driver);
+    public void update(Track Track) {
+        repo.update(Track);
     }
 
-    public void remove(Driver driver) {
-        repo.remove(driver);
+    public void remove(Track Track) {
+        repo.remove(Track);
     }
 }

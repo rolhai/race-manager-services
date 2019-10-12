@@ -1,6 +1,17 @@
 /**
  * Copyright (c) 2019 by rolhai
- * All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package at.racemanager.driver.api;
 
@@ -19,66 +30,57 @@ import at.racemanager.drivers.logic.DriverService;
 import io.quarkus.test.junit.QuarkusTest;
 
 /**
- * testing the resource drivers
- * 
+ * testing the resource driver
+ *
  * @author rolhai
  */
 @QuarkusTest
 public class DriversResourceTest {
 
-	@Inject
-	DriverService driverService;
-	
-	/**
-	 * test getting all drivers
-	 */
+    @Inject
+    DriverService driverService;
+
+    /**
+     * test getting all drivers
+     */
     @Test
     public void testGetDriversEndpoint() {
-    	Jsonb jsonb = JsonbBuilder.create();
-    	String json = jsonb.toJson(driverService.getDrivers());  
-    	
-        given()
-          .when().get("/drivers")
-          .then().statusCode(200)
-          .body(is(json));
+        Jsonb jsonb = JsonbBuilder.create();
+        String json = jsonb.toJson(driverService.getDrivers());
+
+        given().when().get("/drivers").then().statusCode(200).body(is(json));
     }
-    
+
     /**
      * test adding a driver
      */
     @Test
     public void testAddDriversEndpoint() {
-    	Driver driver = new Driver();
-    	driver.setFirstname("Fernando");
-    	driver.setLastname("Alonso");
-    	
-    	Jsonb jsonb = JsonbBuilder.create();
-    	String json = jsonb.toJson(driver);
-    	
-    	given()
-    		.body(json)
-    		.header("Content-Type", MediaType.APPLICATION_JSON)
-    		.when().put("/drivers")
-    		.then().statusCode(200);
+        Driver driver = new Driver();
+        driver.setFirstname("Fernando");
+        driver.setLastname("Alonso");
+
+        Jsonb jsonb = JsonbBuilder.create();
+        String json = jsonb.toJson(driver);
+
+        given().body(json).header("Content-Type", MediaType.APPLICATION_JSON).when().put("/drivers").then()
+        .statusCode(200);
     }
-    
+
     /**
      * test removing a driver
      */
     @Test
     public void testRemoveDriversEndpoint() {
-    	Driver driver = new Driver();
-    	driver.setFirstname("Fernando");
-    	driver.setLastname("Alonso");
-    	
-    	Jsonb jsonb = JsonbBuilder.create();
-    	String json = jsonb.toJson(driver);
+        Driver driver = new Driver();
+        driver.setFirstname("Fernando");
+        driver.setLastname("Alonso");
 
-    	given()
-    		.body(json)
-    		.header("Content-Type", MediaType.APPLICATION_JSON)
-    		.when().delete("/drivers")
-    		.then().statusCode(200);
+        Jsonb jsonb = JsonbBuilder.create();
+        String json = jsonb.toJson(driver);
+
+        given().body(json).header("Content-Type", MediaType.APPLICATION_JSON).when().delete("/drivers").then()
+        .statusCode(200);
     }
 
 }
