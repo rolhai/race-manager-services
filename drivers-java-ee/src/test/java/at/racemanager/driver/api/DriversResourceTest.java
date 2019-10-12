@@ -1,3 +1,7 @@
+/**
+ * Copyright (c) 2019 by rolhai
+ * All rights reserved.
+ */
 package at.racemanager.driver.api;
 
 import static io.restassured.RestAssured.given;
@@ -10,12 +14,12 @@ import javax.ws.rs.core.MediaType;
 
 import org.junit.jupiter.api.Test;
 
-import at.racemanager.drivers.api.Driver;
-import at.racemanager.drivers.business.DriverService;
+import at.racemanager.drivers.api.model.Driver;
+import at.racemanager.drivers.logic.DriverService;
 import io.quarkus.test.junit.QuarkusTest;
 
 /**
- * testing the driver-resource
+ * testing the resource drivers
  * 
  * @author rolhai
  */
@@ -35,9 +39,8 @@ public class DriversResourceTest {
     	
         given()
           .when().get("/drivers")
-          .then()
-             .statusCode(200)
-             .body(is(json));
+          .then().statusCode(200)
+          .body(is(json));
     }
     
     /**
@@ -55,9 +58,8 @@ public class DriversResourceTest {
     	given()
     		.body(json)
     		.header("Content-Type", MediaType.APPLICATION_JSON)
-    		.when().post("/drivers")
-    		.then()
-            	.statusCode(200);
+    		.when().put("/drivers")
+    		.then().statusCode(200);
     }
     
     /**
@@ -76,8 +78,7 @@ public class DriversResourceTest {
     		.body(json)
     		.header("Content-Type", MediaType.APPLICATION_JSON)
     		.when().delete("/drivers")
-    		.then()
-            	.statusCode(200);
+    		.then().statusCode(200);
     }
 
 }
