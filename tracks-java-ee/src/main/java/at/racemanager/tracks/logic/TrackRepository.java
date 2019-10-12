@@ -35,11 +35,13 @@ public class TrackRepository {
     void initRepo() {
         // https://en.wikipedia.org/wiki/List_of_Formula_One_circuits
 
-        repo.add(new Track("Adelaide Street Circuit", "Adelaide", CountryIsoCode.AU.toString()));
-        repo.add(new Track("", "", ""));
-        repo.add(new Track("", "", ""));
-        repo.add(new Track("", "", ""));
-        repo.add(new Track("", "", ""));
+        repo.add(new Track("Australian Grand Prix", "Adelaide Street Circuit", "Adelaide", CountryIsoCode.AU.toString()));
+        repo.add(new Track("San Marino Grand Prix", "Autodromo Enzo e Dino Ferrari", "Imola", CountryIsoCode.IT.toString()));
+        repo.add(new Track("Italian Grand Prix", "Autodromo Nazionale Monza", "Monza", CountryIsoCode.IT.toString()));
+        repo.add(new Track("Monaco Grand Prix", "Circuit de Monaco", "Monte Carlo", CountryIsoCode.MC.toString()));
+        //https://en.wikipedia.org/wiki/Circuit_de_Monaco
+
+        //repo.add(new Track("", "", ""));
 
     }
 

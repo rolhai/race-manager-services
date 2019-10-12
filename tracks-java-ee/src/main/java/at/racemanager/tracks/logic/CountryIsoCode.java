@@ -54,6 +54,10 @@ public enum CountryIsoCode {
      */
     GB,
     /**
+     * Italien
+     */
+    IT,
+    /**
      * Monaco
      */
     MC,

@@ -24,7 +24,10 @@ import javax.validation.constraints.Size;
 public class Track {
 
     @NotNull
-    private String name;
+    private String gradPrix;
+
+    @NotNull
+    private String circuit;
 
     @NotNull
     private String location;
@@ -34,28 +37,38 @@ public class Track {
     private String country;
 
     /**
-     * @param name
+     * @param gradPrix
+     * @param circuit
      * @param location
      * @param country
      */
-    public Track(String name, String location, String country) {
+    public Track(String gradPrix, String circuit, String location, String country) {
         super();
-        this.name = name;
+        this.gradPrix = gradPrix;
+        this.circuit = circuit;
         this.location = location;
         this.country = country;
     }
 
     @Override
     public String toString() {
-        return "Track [name=" + name + ", location=" + location + ", country=" + country + "]";
+        return "Track [gradPrix=" + gradPrix + ", circuit=" + circuit + ", location=" + location + ", country=" + country + "]";
     }
 
-    public String getName() {
-        return name;
+    public String getCircuit() {
+        return circuit;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCircuit(String circuit) {
+        this.circuit = circuit;
+    }
+
+    public String getGradPrix() {
+        return gradPrix;
+    }
+
+    public void setGradPrix(String gradPrix) {
+        this.gradPrix = gradPrix;
     }
 
     public String getLocation() {
@@ -78,7 +91,7 @@ public class Track {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((circuit == null) ? 0 : circuit.hashCode());
         return result;
     }
 
@@ -91,10 +104,10 @@ public class Track {
         if (getClass() != obj.getClass())
             return false;
         Track other = (Track) obj;
-        if (name == null) {
-            if (other.name != null)
+        if (circuit == null) {
+            if (other.circuit != null)
                 return false;
-        } else if (!name.equals(other.name))
+        } else if (!circuit.equals(other.circuit))
             return false;
         return true;
     }
