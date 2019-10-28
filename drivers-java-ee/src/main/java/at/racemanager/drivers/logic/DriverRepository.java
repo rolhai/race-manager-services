@@ -18,6 +18,7 @@ package at.racemanager.drivers.logic;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -34,7 +35,7 @@ import at.racemanager.drivers.api.model.DriverInfo;
 @ApplicationScoped
 public class DriverRepository {
 
-    private final List<Driver> repo = new ArrayList<>();
+    private final List<Driver> repo = Collections.synchronizedList(new ArrayList<>());
 
     @PostConstruct
     void initRepo() {
