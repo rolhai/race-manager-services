@@ -20,19 +20,19 @@ package at.racemanager.drivers.api.model;
  */
 public class DriverInfo {
 
-	private String wikipedia;
+    private String wikipedia;
 
-	@Override
-	public String toString() {
-		return "DriverInfo [wikipedia=" + wikipedia + "]";
-	}
+    @Override
+    public String toString() {
+        return "DriverInfo [wikipedia=" + wikipedia + "]";
+    }
 
-	public String getWikipedia() {
-		return wikipedia;
-	}
+    public String getWikipedia() {
+        return wikipedia;
+    }
 
-	public void setWikipedia(String wikipedia) {
-		this.wikipedia = wikipedia;
-	}
-	
+    public void setWikipedia(String wikipedia) {
+        this.wikipedia = wikipedia;
+    }
+
 }

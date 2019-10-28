@@ -33,13 +33,13 @@ import at.racemanager.drivers.logic.DriverService;
  *
  * @author rolhai
  */
-@Path("/drivers")
+@Path("drivers")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class DriversResource {
 
     @Inject
-    private DriverService service;
+    DriverService service;
 
     @GET
     public Response getDrivers() {
@@ -47,14 +47,14 @@ public class DriversResource {
     }
 
     @PUT
-    public Response updateDriver(Driver driver) {
-        service.update(driver);
+    public Response updateDriver(Driver obj) {
+        service.update(obj);
         return Response.ok().build();
     }
 
     @DELETE
-    public Response removeDriver(Driver driver) {
-        service.remove(driver);
+    public Response removeDriver(Driver obj) {
+        service.remove(obj);
         return Response.ok().build();
     }
 }

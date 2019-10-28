@@ -31,7 +31,7 @@ import at.racemanager.drivers.api.model.Driver;
 public class DriverService {
 
     @Inject
-    private DriverRepository repo;
+    DriverRepository repo;
 
     public List<Driver> getDrivers() {
         return repo.getDrivers();
