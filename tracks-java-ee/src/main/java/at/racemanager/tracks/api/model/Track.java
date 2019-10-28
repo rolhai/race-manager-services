@@ -19,6 +19,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
+ * entity for a track
+ *
  * @author rolhai
  */
 public class Track {
@@ -52,7 +54,8 @@ public class Track {
 
     @Override
     public String toString() {
-        return "Track [gradPrix=" + gradPrix + ", circuit=" + circuit + ", location=" + location + ", country=" + country + "]";
+        return "Track [gradPrix=" + gradPrix + ", circuit=" + circuit + ", location=" + location + ", country="
+                + country + "]";
     }
 
     public String getCircuit() {

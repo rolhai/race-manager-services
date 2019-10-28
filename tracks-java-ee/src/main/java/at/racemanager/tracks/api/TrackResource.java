@@ -18,13 +18,13 @@ import at.racemanager.tracks.logic.TrackService;
  *
  * @author rolhai
  */
-@Path("/tracks")
+@Path("tracks")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class TrackResource {
 
     @Inject
-    private TrackService service;
+    TrackService service;
 
     @GET
     public Response getTracks() {
@@ -32,14 +32,14 @@ public class TrackResource {
     }
 
     @PUT
-    public Response updateTrack(Track Track) {
-        service.update(Track);
+    public Response updateTrack(Track obj) {
+        service.update(obj);
         return Response.ok().build();
     }
 
     @DELETE
-    public Response removeTrack(Track Track) {
-        service.remove(Track);
+    public Response removeTrack(Track obj) {
+        service.remove(obj);
         return Response.ok().build();
     }
 }

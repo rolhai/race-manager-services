@@ -24,23 +24,25 @@ import at.racemanager.tracks.api.model.Track;
 
 
 /**
+ * business logic for tracks
+ *
  * @author rolhai
  */
 @RequestScoped
 public class TrackService {
 
     @Inject
-    private TrackRepository repo;
+    TrackRepository repo;
 
     public List<Track> getTracks() {
         return repo.getTracks();
     }
 
-    public void update(Track Track) {
-        repo.update(Track);
+    public void update(Track track) {
+        repo.update(track);
     }
 
-    public void remove(Track Track) {
-        repo.remove(Track);
+    public void remove(Track track) {
+        repo.remove(track);
     }
 }
