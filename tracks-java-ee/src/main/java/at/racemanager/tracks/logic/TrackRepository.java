@@ -17,7 +17,9 @@ package at.racemanager.tracks.logic;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -32,7 +34,7 @@ import at.racemanager.tracks.api.model.Track;
 @ApplicationScoped
 public class TrackRepository {
 
-    private List<Track> repo = Collections.synchronizedList(new ArrayList<>());
+    private final Set<Track> repo = Collections.synchronizedSet(new HashSet<>());
 
     @PostConstruct
     void initRepo() {

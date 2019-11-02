@@ -31,8 +31,55 @@ public class DriverBuilder {
 
     private DriverInfo driverInfo = new DriverInfo();
 
+    public static DriverBuilder create(Driver driver) {
+        DriverBuilder builder = create();
+        if (driver != null) {
+            builder.id(driver.getId())
+            .firstname(driver.getFirstname())
+            .lastname(driver.getLastname())
+            .birthday(driver.getBirthday())
+            .country(driver.getCountry())
+            .carNumber(driver.getCarNumber());
+        }
+        if (driver.getInfo() != null) {
+            builder.wikipedia(driver.getInfo().getWikipedia());
+        }
+        return builder;
+    }
+
     public static DriverBuilder create() {
         return new DriverBuilder();
+    }
+
+    public static DriverBuilder merge(Driver target, Driver changes) {
+        DriverBuilder builder = create(target);
+        if (changes != null) {
+            // the ID is not merged
+            if (changes.getFirstname() != null) {
+                builder.firstname(changes.getFirstname());
+            }
+            if (changes.getLastname() != null) {
+                builder.lastname(changes.getLastname());
+            }
+            if (changes.getBirthday() != null) {
+                builder.birthday(changes.getBirthday());
+            }
+            if (changes.getCarNumber() != null) {
+                builder.carNumber(changes.getCarNumber());
+            }
+            DriverInfo infoChanges = changes.getInfo();
+            if (infoChanges != null) {
+                if (infoChanges.getWikipedia() != null) {
+                    builder.wikipedia(infoChanges.getWikipedia());
+                }
+            }
+        }
+        return builder;
+    }
+
+    public DriverBuilder id(Long id) {
+        driver.setId(id);
+        return this;
     }
 
     public DriverBuilder firstname(String firstname) {
@@ -55,7 +102,7 @@ public class DriverBuilder {
         return this;
     }
 
-    public DriverBuilder carNumber(int carNumber) {
+    public DriverBuilder carNumber(Integer carNumber) {
         driver.setCarNumber(carNumber);
         return this;
     }

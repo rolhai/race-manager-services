@@ -17,7 +17,9 @@ package at.racemanager.teams.logic;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -32,7 +34,7 @@ import at.racemanager.teams.model.Team;
 @ApplicationScoped
 public class TeamRepository {
 
-    private List<Team> repo = Collections.synchronizedList(new ArrayList<>());
+    private final Set<Team> repo = Collections.synchronizedSet(new HashSet<>());
 
     @PostConstruct
     void initRepo() {

@@ -19,8 +19,11 @@ import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.PATCH;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -43,18 +46,39 @@ public class DriversResource {
 
     @GET
     public Response getDrivers() {
-        return Response.ok(service.getDrivers()).build();
+        return Response.ok(service.getAll()).build();
+    }
+
+    @GET
+    @Path("{driverId}")
+    public Response getDriver(@PathParam(value = "driverId") long driverId) {
+        return Response.ok(service.get(driverId)).build();
+    }
+
+    @POST
+    public Response createDriver(Driver driver) {
+        Driver result = service.create(driver);
+        return Response.status(Response.Status.CREATED).entity(result).build();
+    }
+
+    @PATCH
+    @Path("{driverId}")
+    public Response updateDriver(@PathParam(value = "driverId") long driverId, Driver driver) {
+        Driver result = service.update(driverId, driver);
+        return Response.ok(result).build();
     }
 
     @PUT
-    public Response updateDriver(Driver obj) {
-        service.update(obj);
-        return Response.ok().build();
+    @Path("{driverId}")
+    public Response saveDriver(@PathParam(value = "driverId") long driverId, Driver driver) {
+        Driver result = service.save(driverId, driver);
+        return Response.ok(result).build();
     }
 
     @DELETE
-    public Response removeDriver(Driver obj) {
-        service.remove(obj);
+    @Path("{driverId}")
+    public Response removeDriver(@PathParam(value = "driverId") long driverId) {
+        service.remove(driverId);
         return Response.ok().build();
     }
 }

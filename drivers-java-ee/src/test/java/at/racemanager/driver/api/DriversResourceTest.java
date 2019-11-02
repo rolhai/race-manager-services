@@ -18,6 +18,9 @@ package at.racemanager.driver.api;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 
+import java.time.LocalDate;
+import java.time.Month;
+
 import javax.inject.Inject;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
@@ -46,7 +49,7 @@ public class DriversResourceTest {
     @Test
     public void testGetDriversEndpoint() {
         Jsonb jsonb = JsonbBuilder.create();
-        String json = jsonb.toJson(driverService.getDrivers());
+        String json = jsonb.toJson(driverService.getAll());
 
         given().when().get("/drivers").then().statusCode(200).body(is(json));
     }
@@ -59,12 +62,13 @@ public class DriversResourceTest {
         Driver driver = new Driver();
         driver.setFirstname("Fernando");
         driver.setLastname("Alonso");
+        driver.setBirthday(LocalDate.of(1980, Month.JANUARY, 1));
 
         Jsonb jsonb = JsonbBuilder.create();
         String json = jsonb.toJson(driver);
 
-        given().body(json).header("Content-Type", MediaType.APPLICATION_JSON).when().put("/drivers").then()
-        .statusCode(200);
+        given().body(json).header("Content-Type", MediaType.APPLICATION_JSON).when().post("/drivers").then()
+        .statusCode(201);
     }
 
     /**
@@ -72,14 +76,7 @@ public class DriversResourceTest {
      */
     @Test
     public void testRemoveDriversEndpoint() {
-        Driver driver = new Driver();
-        driver.setFirstname("Fernando");
-        driver.setLastname("Alonso");
-
-        Jsonb jsonb = JsonbBuilder.create();
-        String json = jsonb.toJson(driver);
-
-        given().body(json).header("Content-Type", MediaType.APPLICATION_JSON).when().delete("/drivers").then()
+        given().header("Content-Type", MediaType.APPLICATION_JSON).when().delete("/drivers/"+1).then()
         .statusCode(200);
     }
 

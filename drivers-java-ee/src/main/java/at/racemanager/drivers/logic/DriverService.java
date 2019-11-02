@@ -15,7 +15,7 @@
  */
 package at.racemanager.drivers.logic;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -30,18 +30,113 @@ import at.racemanager.drivers.api.model.Driver;
 @RequestScoped
 public class DriverService {
 
+    /**
+     * repository for drivers
+     */
     @Inject
     DriverRepository repo;
 
-    public List<Driver> getDrivers() {
-        return repo.getDrivers();
+    /**
+     * get all entities
+     * @return all entities
+     */
+    public Set<Driver> getAll() {
+        return repo.getAll();
     }
 
-    public void update(Driver driver) {
-        repo.update(driver);
+    /**
+     * get the entity with id
+     * @param entityId if of the entity
+     * @return the entity with id
+     */
+    public Driver get(long entityId) {
+        if (entityId < 1) {
+            throw new ResourceNotFoundException();
+        }
+        return repo.get(entityId);
     }
 
-    public void remove(Driver driver) {
-        repo.remove(driver);
+    /**
+     * create entity with new id
+     * @param entity entity
+     * @return
+     */
+    public Driver create(Driver entity) {
+        if (entity == null) {
+            throw new InvalidRequestParameterException();
+        }
+        Driver result = DriverBuilder
+                .create(entity)
+                .id(null)
+                .build();
+        result = repo.insert(result);
+        if (result == null || result.getId() == null) {
+            throw new ResourceNotCreatedException();
+        }
+        return result;
+    }
+
+    public Driver save(long entityId, Driver entity) {
+        if (entityId < 1) {
+            throw new ResourceNotFoundException();
+        }
+        if (entity == null) {
+            throw new InvalidRequestParameterException();
+        }
+        Driver result = DriverBuilder
+                .create(entity)
+                .id(entityId)
+                .build();
+        Driver found = get(entityId);
+        if (found == null) {
+            result = repo.insert(result);
+        }
+        else {
+            result = repo.update(result);
+        }
+        if (result == null || result.getId() == null) {
+            throw new ResourceNotCreatedException();
+        }
+        return result;
+    }
+
+    /**
+     * update changed values and return complete entity
+     * @param entityId id of the entity
+     * @param changes values to change
+     * @return the complete entity with changes
+     */
+    public Driver update(long entityId, Driver changes) {
+        if (entityId < 1) {
+            throw new ResourceNotFoundException();
+        }
+        if (changes == null) {
+            throw new InvalidRequestParameterException();
+        }
+        Driver found = repo.get(entityId);
+        if (found == null) {
+            throw new ResourceNotFoundException();
+        }
+        Driver result = DriverBuilder.merge(found, changes).build();
+        result = repo.update(result);
+        if (result == null || result.getId() == null) {
+            throw new ResourceNotCreatedException();
+        }
+        return result;
+    }
+
+    /**
+     * remove entity with id
+     * @param entityId id of the entity
+     */
+    public void remove(long entityId) {
+        if (entityId < 1) {
+            throw new ResourceNotFoundException();
+        }
+        Driver found = repo.get(entityId);
+        if (found == null) {
+            throw new ResourceNotFoundException();
+        }
+        repo.remove(found);
     }
 }

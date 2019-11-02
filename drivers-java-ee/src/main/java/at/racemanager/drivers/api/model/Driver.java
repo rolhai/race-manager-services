@@ -27,17 +27,19 @@ import javax.validation.constraints.Size;
  */
 public class Driver {
 
+    private Long id;
+
     @NotNull
     private String firstname;
 
     @NotNull
     private String lastname;
 
-    private int carNumber;
-
+    @NotNull
     private LocalDate birthday;
 
-    @NotNull
+    private Integer carNumber;
+
     @Size(min = 2, max = 2)
     private String country;
 
@@ -45,8 +47,24 @@ public class Driver {
 
     @Override
     public String toString() {
-        return "Driver [firstname=" + firstname + ", lastname=" + lastname + ", carNumber=" + carNumber + ", birthday="
-                + birthday + ", country=" + country + ", info=" + info + "]";
+        return "Driver [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", carNumber=" + carNumber
+                + ", birthday=" + birthday + ", country=" + country + "]";
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setCarNumber(Integer carNumber) {
+        this.carNumber = carNumber;
+    }
+
+    public Integer getCarNumber() {
+        return carNumber;
     }
 
     public String getFirstname() {
@@ -79,14 +97,6 @@ public class Driver {
 
     public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
-    }
-
-    public int getCarNumber() {
-        return carNumber;
-    }
-
-    public void setCarNumber(int carNumber) {
-        this.carNumber = carNumber;
     }
 
     public DriverInfo getInfo() {
