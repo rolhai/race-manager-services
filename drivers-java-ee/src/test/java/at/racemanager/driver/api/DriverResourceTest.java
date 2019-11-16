@@ -38,7 +38,7 @@ import io.quarkus.test.junit.QuarkusTest;
  * @author rolhai
  */
 @QuarkusTest
-public class DriversResourceTest {
+public class DriverResourceTest {
 
     @Inject
     DriverService driverService;

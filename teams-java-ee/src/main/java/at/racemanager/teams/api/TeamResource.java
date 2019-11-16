@@ -13,13 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package at.racemanager.drivers.api;
+package at.racemanager.teams.api;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.PATCH;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -28,57 +27,58 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import at.racemanager.drivers.api.model.Driver;
-import at.racemanager.drivers.logic.DriverService;
+import at.racemanager.teams.logic.TeamRepository;
+import at.racemanager.teams.model.Team;
 
 /**
- * resource for drivers
+ * resource for teams
  *
  * @author rolhai
  */
-@Path("drivers")
+@Path("teams")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class DriversResource {
+public class TeamResource {
 
     @Inject
-    DriverService service;
+    TeamRepository repo;
 
     @GET
-    public Response getDrivers() {
-        return Response.ok(service.getAll()).build();
-    }
-
-    @GET
-    @Path("{driverId}")
-    public Response getDriver(@PathParam(value = "driverId") long driverId) {
-        return Response.ok(service.get(driverId)).build();
+    public Response getTeam() {
+        return Response.ok(repo.getAll()).build();
     }
 
     @POST
-    public Response createDriver(Driver driver) {
-        Driver result = service.create(driver);
+    public Response crateTeam(Team entity) {
+        Team result = repo.insert(entity);
         return Response.status(Response.Status.CREATED).entity(result).build();
     }
 
-    @PATCH
-    @Path("{driverId}")
-    public Response updateDriver(@PathParam(value = "driverId") long driverId, Driver driver) {
-        Driver result = service.update(driverId, driver);
-        return Response.ok(result).build();
-    }
-
     @PUT
-    @Path("{driverId}")
-    public Response saveDriver(@PathParam(value = "driverId") long driverId, Driver driver) {
-        Driver result = service.save(driverId, driver);
+    @Path("{teamId}")
+    public Response saveDriver(@PathParam(value = "teamId") long teamId, Team entity) {
+        if (teamId < 1) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        Team result = null;
+        Team found = repo.get(teamId);
+        if (found == null) {
+            result = repo.insert(entity);
+        }
+        else {
+            result = repo.update(entity);
+        }
         return Response.ok(result).build();
     }
 
     @DELETE
-    @Path("{driverId}")
-    public Response removeDriver(@PathParam(value = "driverId") long driverId) {
-        service.remove(driverId);
+    @Path("{teamId}")
+    public Response removeTrack(@PathParam(value = "teamId") long teamId) {
+        if (teamId < 1) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        Team entity = repo.get(teamId);
+        repo.remove(entity);
         return Response.ok().build();
     }
 }

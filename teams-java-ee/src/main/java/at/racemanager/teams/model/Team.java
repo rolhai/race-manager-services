@@ -25,6 +25,8 @@ import javax.validation.constraints.Size;
  */
 public class Team {
 
+    private Long id;
+
     @NotNull
     private String constructor;
 
@@ -40,8 +42,9 @@ public class Team {
      * @param engine
      * @param country
      */
-    public Team(@NotNull String constructor, @NotNull String engine, @NotNull @Size(min = 2, max = 2) String country) {
+    public Team(Long id, String constructor, String engine, String country) {
         super();
+        this.id = id;
         this.constructor = constructor;
         this.engine = engine;
         this.country = country;
@@ -49,7 +52,46 @@ public class Team {
 
     @Override
     public String toString() {
-        return "Team [constructor=" + constructor + ", engine=" + engine + ", country=" + country + "]";
+        return "Team [id=" + id + ", constructor=" + constructor + ", engine=" + engine + ", country=" + country + "]";
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((constructor == null) ? 0 : constructor.hashCode());
+        result = prime * result + ((engine == null) ? 0 : engine.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Team other = (Team) obj;
+        if (constructor == null) {
+            if (other.constructor != null)
+                return false;
+        } else if (!constructor.equals(other.constructor))
+            return false;
+        if (engine == null) {
+            if (other.engine != null)
+                return false;
+        } else if (!engine.equals(other.engine))
+            return false;
+        return true;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getConstructor() {

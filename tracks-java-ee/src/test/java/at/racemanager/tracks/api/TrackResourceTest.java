@@ -15,16 +15,6 @@
  */
 package at.racemanager.tracks.api;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.is;
-
-import javax.inject.Inject;
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
-
-import org.junit.jupiter.api.Test;
-
-import at.racemanager.tracks.logic.TrackService;
 import io.quarkus.test.junit.QuarkusTest;
 
 /**
@@ -34,19 +24,5 @@ import io.quarkus.test.junit.QuarkusTest;
  */
 @QuarkusTest
 public class TrackResourceTest {
-
-    @Inject
-    TrackService service;
-
-    /**
-     * test getting all drivers
-     */
-    @Test
-    public void testGetDriversEndpoint() {
-        Jsonb jsonb = JsonbBuilder.create();
-        String json = jsonb.toJson(service.getTracks());
-
-        given().when().get("/tracks").then().statusCode(200).body(is(json));
-    }
 
 }

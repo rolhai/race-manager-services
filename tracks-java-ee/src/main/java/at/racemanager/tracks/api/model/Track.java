@@ -25,6 +25,8 @@ import javax.validation.constraints.Size;
  */
 public class Track {
 
+    private Long id;
+
     @NotNull
     private String gradPrix;
 
@@ -44,8 +46,9 @@ public class Track {
      * @param location
      * @param country
      */
-    public Track(String gradPrix, String circuit, String location, String country) {
+    public Track(Long id, String gradPrix, String circuit, String location, String country) {
         super();
+        this.id = id;
         this.gradPrix = gradPrix;
         this.circuit = circuit;
         this.location = location;
@@ -54,8 +57,16 @@ public class Track {
 
     @Override
     public String toString() {
-        return "Track [gradPrix=" + gradPrix + ", circuit=" + circuit + ", location=" + location + ", country="
-                + country + "]";
+        return "Track [id=" + id + ", gradPrix=" + gradPrix + ", circuit=" + circuit + ", location=" + location
+                + ", country=" + country + "]";
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getCircuit() {

@@ -25,7 +25,7 @@ import at.racemanager.drivers.api.model.DriverInfo;
  *
  * @author rolhai
  */
-public class DriverBuilder {
+public final class DriverBuilder {
 
     private Driver driver = new Driver();
 
@@ -45,6 +45,10 @@ public class DriverBuilder {
             builder.wikipedia(driver.getInfo().getWikipedia());
         }
         return builder;
+    }
+
+    private DriverBuilder() {
+        super();
     }
 
     public static DriverBuilder create() {

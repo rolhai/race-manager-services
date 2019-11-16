@@ -3,7 +3,7 @@ package at.racemanager.driver.api;
 import io.quarkus.test.junit.SubstrateTest;
 
 @SubstrateTest
-public class NativeDriversResourceIT extends DriversResourceTest {
+public class NativeDriverResourceIT extends DriverResourceTest {
 
     // Execute the same tests but in native mode.
 }
