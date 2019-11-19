@@ -18,7 +18,7 @@ function setup() {
   oc new-project race-manager
 
   echo create new build...drivers
-  oc new-build --strategy docker --dockerfile - --code ${root_folder}/drivers-java-ee/. --name drivers < ${root_folder}/drivers-java-ee/src/main/docker/Dockerfile.jvm
+  oc new-build --strategy docker --dockerfile - --code ${root_folder}/drivers/. --name drivers < ${root_folder}/drivers/src/main/docker/Dockerfile.jvm
 
   echo start build...drivers
   oc start-build --from-dir . drivers

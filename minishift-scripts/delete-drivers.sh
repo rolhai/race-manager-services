@@ -14,15 +14,15 @@ function _out() {
 }
 
 function setup() {
-  _out Deleting drivers-java-ee
+  _out Deleting drivers
   
-  cd ${root_folder}/drivers-java-ee
+  cd ${root_folder}/drivers
   oc delete all -l app=drivers --ignore-not-found
   oc delete all -l app=drivers --ignore-not-found
   oc delete configmap -l app=drivers --ignore-not-found
   oc delete -f deployment/istio.yaml --ignore-not-found
 
-  _out Done Deleting drivers-java-ee
+  _out Done Deleting drivers
 }
 
 login

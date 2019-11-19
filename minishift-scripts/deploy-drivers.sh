@@ -16,15 +16,15 @@ function _out() {
 }
 
 function setup() {
-  _out Deploying drivers-java-ee
+  _out Deploying drivers
   
-  cd ${root_folder}/drivers-java-ee
+  cd ${root_folder}/drivers
   oc delete all -l app=drivers --ignore-not-found
   oc delete all -l app=drivers --ignore-not-found
   oc delete configmap -l app=drivers --ignore-not-found
   oc delete -f deployment/istio.yaml --ignore-not-found
 
-  file="${root_folder}/drivers-java-ee/liberty-opentracing-zipkintracer-1.2-sample.zip"
+  file="${root_folder}/drivers/liberty-opentracing-zipkintracer-1.2-sample.zip"
   if [ -f "$file" ]
   then
 	  echo "$file found"
@@ -39,14 +39,14 @@ function setup() {
   docker tag drivers:1 $(minishift openshift registry)/race-manager/drivers:1
   docker push $(minishift openshift registry)/race-manager/drivers:1
 
-  cd ${root_folder}/drivers-java-ee/deployment
+  cd ${root_folder}/drivers/deployment
   sed "s+drivers:1+$(minishift openshift registry)/race-manager/drivers:1+g" kubernetes.yaml > kubernetes-minishift.yaml
 
   oc apply -f kubernetes-minishift.yaml
   oc apply -f istio.yaml
   oc expose svc/drivers
 
-  _out Done deploying drivers-java-ee
+  _out Done deploying drivers
   _out Wait until the pod has been started: "oc get pod --watch | grep drivers"
   _out OpenAPI explorer: http://$(oc get route drivers -o jsonpath={.spec.host})/openapi/ui/
 }
