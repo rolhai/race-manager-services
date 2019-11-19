@@ -21,9 +21,9 @@ import javax.ws.rs.core.Response;
 /**
  * @author rolhai
  */
-public class ResourceNotCreatedException extends WebApplicationException {
+public class NotUpdatedException extends WebApplicationException {
 
-    public ResourceNotCreatedException() {
+    public NotUpdatedException() {
         super(Response.Status.CONFLICT);
     }
 }

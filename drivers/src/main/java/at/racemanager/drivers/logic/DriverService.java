@@ -19,6 +19,8 @@ import java.util.Set;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.ws.rs.BadRequestException;
+import javax.ws.rs.NotFoundException;
 
 import at.racemanager.drivers.api.model.Driver;
 
@@ -51,7 +53,7 @@ public class DriverService {
      */
     public Driver get(long entityId) {
         if (entityId < 1) {
-            throw new ResourceNotFoundException();
+            throw new NotFoundException();
         }
         return repo.get(entityId);
     }
@@ -63,7 +65,7 @@ public class DriverService {
      */
     public Driver create(Driver entity) {
         if (entity == null) {
-            throw new InvalidRequestParameterException();
+            throw new BadRequestException();
         }
         Driver result = DriverBuilder
                 .create(entity)
@@ -71,17 +73,17 @@ public class DriverService {
                 .build();
         result = repo.insert(result);
         if (result == null || result.getId() == null) {
-            throw new ResourceNotCreatedException();
+            throw new NotUpdatedException();
         }
         return result;
     }
 
     public Driver save(long entityId, Driver entity) {
         if (entityId < 1) {
-            throw new ResourceNotFoundException();
+            throw new NotFoundException();
         }
         if (entity == null) {
-            throw new InvalidRequestParameterException();
+            throw new BadRequestException();
         }
         Driver result = DriverBuilder
                 .create(entity)
@@ -95,7 +97,7 @@ public class DriverService {
             result = repo.update(result);
         }
         if (result == null || result.getId() == null) {
-            throw new ResourceNotCreatedException();
+            throw new NotUpdatedException();
         }
         return result;
     }
@@ -108,19 +110,19 @@ public class DriverService {
      */
     public Driver update(long entityId, Driver changes) {
         if (entityId < 1) {
-            throw new ResourceNotFoundException();
+            throw new NotFoundException();
         }
         if (changes == null) {
-            throw new InvalidRequestParameterException();
+            throw new BadRequestException();
         }
         Driver found = repo.get(entityId);
         if (found == null) {
-            throw new ResourceNotFoundException();
+            throw new NotFoundException();
         }
         Driver result = DriverBuilder.merge(found, changes).build();
         result = repo.update(result);
         if (result == null || result.getId() == null) {
-            throw new ResourceNotCreatedException();
+            throw new NotUpdatedException();
         }
         return result;
     }
@@ -131,11 +133,11 @@ public class DriverService {
      */
     public void remove(long entityId) {
         if (entityId < 1) {
-            throw new ResourceNotFoundException();
+            throw new NotFoundException();
         }
         Driver found = repo.get(entityId);
         if (found == null) {
-            throw new ResourceNotFoundException();
+            throw new NotFoundException();
         }
         repo.remove(found);
     }

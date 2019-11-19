@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * entity for a team
+ * entity for a racing team
  *
  * @author rolhai
  */

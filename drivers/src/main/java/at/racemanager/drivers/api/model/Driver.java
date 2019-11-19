@@ -21,7 +21,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * entity for a driver
+ * entity for a race driver
  *
  * @author rolhai
  */

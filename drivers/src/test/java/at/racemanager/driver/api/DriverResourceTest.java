@@ -51,7 +51,9 @@ public class DriverResourceTest {
         Jsonb jsonb = JsonbBuilder.create();
         String json = jsonb.toJson(driverService.getAll());
 
-        given().when().get("/drivers").then().statusCode(200).body(is(json));
+        given()
+        .when().get("/drivers")
+        .then().statusCode(200).body(is(json));
     }
 
     /**
@@ -67,8 +69,10 @@ public class DriverResourceTest {
         Jsonb jsonb = JsonbBuilder.create();
         String json = jsonb.toJson(driver);
 
-        given().body(json).header("Content-Type", MediaType.APPLICATION_JSON).when().post("/drivers").then()
-        .statusCode(201);
+        given()
+        .body(json).header("Content-Type", MediaType.APPLICATION_JSON)
+        .when().post("/drivers")
+        .then().statusCode(201);
     }
 
     /**
@@ -76,8 +80,10 @@ public class DriverResourceTest {
      */
     @Test
     public void testRemoveDriversEndpoint() {
-        given().header("Content-Type", MediaType.APPLICATION_JSON).when().delete("/drivers/"+1).then()
-        .statusCode(200);
+        given()
+        .header("Content-Type", MediaType.APPLICATION_JSON)
+        .when().delete("/drivers/"+1)
+        .then().statusCode(200);
     }
 
 }

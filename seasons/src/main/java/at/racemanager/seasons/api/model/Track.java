@@ -13,17 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package at.racemanager.drivers.logic;
+package at.racemanager.seasons.api.model;
 
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import io.quarkus.mongodb.panache.PanacheMongoEntity;
 
 /**
+ * entity for a race track
+ *
  * @author rolhai
  */
-public class InvalidRequestParameterException extends WebApplicationException {
+public class Track extends PanacheMongoEntity {
 
-    public InvalidRequestParameterException() {
-        super(Response.Status.BAD_REQUEST);
-    }
+    @NotNull
+    public String gradPrix;
+
+    @NotNull
+    public String circuit;
+
+    @NotNull
+    public String location;
+
+    @NotNull
+    @Size(min = 2, max = 2)
+    public String country;
 }

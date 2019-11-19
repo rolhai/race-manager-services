@@ -13,17 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package at.racemanager.drivers.logic;
+package at.racemanager.seasons.api.model;
 
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
+import java.time.LocalDate;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import io.quarkus.mongodb.panache.PanacheMongoEntity;
 
 /**
+ * entity for a race driver
+ *
  * @author rolhai
  */
-public class ResourceNotFoundException extends WebApplicationException {
+public class Driver extends PanacheMongoEntity {
 
-    public ResourceNotFoundException() {
-        super(Response.Status.NOT_FOUND);
-    }
+    @NotNull
+    public String firstname;
+
+    @NotNull
+    public String lastname;
+
+    @NotNull
+    public LocalDate birthday;
+
+    public Integer carNumber;
+
+    @Size(min = 2, max = 2)
+    public String country;
+
 }

@@ -31,7 +31,7 @@ import at.racemanager.teams.logic.TeamRepository;
 import at.racemanager.teams.model.Team;
 
 /**
- * resource for teams
+ * resource for race teams
  *
  * @author rolhai
  */

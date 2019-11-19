@@ -16,7 +16,7 @@ import at.racemanager.tracks.api.model.Track;
 import at.racemanager.tracks.logic.TrackRepository;
 
 /**
- * resource for tracks
+ * resource for race tracks
  *
  * @author rolhai
  */

@@ -32,7 +32,7 @@ import at.racemanager.drivers.api.model.Driver;
 import at.racemanager.drivers.logic.DriverService;
 
 /**
- * resource for drivers
+ * resource for race drivers
  *
  * @author rolhai
  */
